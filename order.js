@@ -97,3 +97,45 @@ customProducts.forEach(product => {
     `;
     productGrid.appendChild(card);
 });
+
+//adding products
+
+document.addEventListener("DOMContentLoaded", function () {
+    // --- Existing Authentication & Filter Logic (Keep your original code here) ---
+
+    // --- Load Custom Products from LocalStorage/Backend ---
+    const productGrid = document.querySelector(".products");
+    const customProducts = JSON.parse(localStorage.getItem('customProducts')) || [];
+
+    customProducts.forEach(product => {
+        const card = document.createElement('div');
+        card.className = "product-card show";
+        card.setAttribute('data-category', product.category);
+        
+        // Added Stock Quantity and ID to the card display
+        card.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <small style="color: #888;">ID: ${product.id}</small>
+            <h3>${product.name} | ${product.weight}</h3>
+            <p>Rs.${product.price}.00</p>
+            <p style="font-size: 12px; color: ${product.stock > 0 ? 'green' : 'red'};">
+                Stock: ${product.stock}
+            </p>
+            <button onclick="addToCart(this)" ${product.stock <= 0 ? 'disabled' : ''}>
+                ${product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
+            </button>
+        `;
+        productGrid.appendChild(card);
+    });
+
+    // --- Re-run filter to include new items ---
+    const buttons = document.querySelectorAll(".category-btn");
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            const category = button.dataset.category;
+            document.querySelectorAll(".product-card").forEach(p => {
+                p.style.display = (category === "all" || p.dataset.category === category) ? "block" : "none";
+            });
+        });
+    });
+});
