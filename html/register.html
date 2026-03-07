@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | FreshMart</title>
+    <link rel="stylesheet" href="register_login.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <h1 class="head">FreshMart</h1>
+        <nav>
+            <a href="test.html">Home</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+    <main class="login-wrapper">
+        <div class="container">
+            <form id="registerForm">
+                <h2>Register</h2>
+                <div class="input-field">
+                    <input type="text" id="regName" required>
+                    <label for="regName">Enter your name</label>
+                </div>
+                <div class="input-field">
+                    <input type="email" id="regEmail" required>
+                    <label for="regEmail">Enter your email</label>
+                </div>
+                <div class="input-field">
+                    <input type="text" id="regAddress" required>
+                    <label for="regAddress">Enter your address</label>
+                </div>
+                <div class="input-field">
+                    <input type="password" id="regPassword" required>
+                    <label for="regPassword">Enter your password</label>
+                    <img src="images/hidden.png" id="togglePassword" class="toggle-icon" alt="Toggle Visibility">
+                </div>
+                <div class="input-field">
+                    <input type="password" id="confirmPassword" required>
+                    <label for="confirmPassword">Re-enter your password</label>
+                    <img src="images/hidden.png" id="toggleConfirmPassword" class="toggle-icon" alt="Toggle Visibility">
+                </div>
+                
+                <button type="submit">Register</button>
+                
+                <div class="account-options">
+                    <p>Already have an account? <a href="login.html">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script src="register.js"></script>
+</body>
+</html>
