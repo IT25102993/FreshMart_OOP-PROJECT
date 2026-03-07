@@ -1,0 +1,134 @@
+/*** Google font - Poppins ***/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+:root {
+    --clr-white: #fff;
+    --clr-black: #000;
+    --clr-border: #ccc;
+    --clr-link: #2a5298;
+    --clr-primary: #23b236;
+    --clr-bg: #f8f9fa;
+}
+
+/* Base Styles for Auth Pages */
+.auth-page {
+    background: var(--clr-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.container {
+    width: 400px;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin: 50px auto;
+}
+
+/* Form Elements */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form h2 {
+    font-size: 2rem;
+    color: var(--clr-link);
+    margin-bottom: 20px;
+}
+
+.input-field {
+    position: relative;
+    margin: 15px 0;
+    border-bottom: 2px solid var(--clr-link);
+}
+
+.input-field input {
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #333;
+    font-size: 1rem;
+}
+
+.input-field label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    color: #666;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: 0.3s ease;
+}
+
+.input-field input:focus ~ label,
+.input-field input:valid ~ label {
+    transform: translateY(-120%);
+    font-size: 0.8rem;
+    top: 10px;
+    color: var(--clr-link);
+}
+
+/* Buttons */
+.submit-btn {
+    width: 100%;
+    margin-top: 20px;
+    background: var(--clr-primary);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.submit-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.submit-btn:active {
+    transform: scale(0.98);
+}
+
+.account-options {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+}
+
+.account-options a {
+    color: var(--clr-link);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.account-options a:hover {
+    text-decoration: underline;
+}
+
+/* Password Toggle Style */
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    opacity: 0.6;
+}

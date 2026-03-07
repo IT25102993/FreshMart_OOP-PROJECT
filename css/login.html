@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshMart | Login</title>
+    <link rel="stylesheet" href="register_login.css"> 
+</head>
+<body>
+    <header class="navbar">
+        <h1 class="head">FreshMart</h1>
+        <nav>
+            <a href="order.html">Home</a>
+            <a href="Register.html">Register</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2>Welcome Back</h2>
+        <p>Login to manage your fresh groceries</p>
+    </section>
+
+    <main class="container">
+        <form id="loginForm">
+            <div class="input-field">
+                <input type="text" id="username" required>
+                <label>Email Address</label>
+            </div>
+            <div class="input-field" style="position:relative;">
+                <input type="password" id="password" required>
+                <label>Password</label>
+                <span class="toggle-password" data-target="password" style="position:absolute; right:10px; top:10px; cursor:pointer;">
+                    <img src="images/view.png" alt="Toggle" width="20">
+                </span>
+            </div>
+            <button type="submit" class="category-btn active" style="width:100%; margin-top:20px;">Login</button>
+            <div class="account-options">
+                <p>Don't have an account? <a href="Register.html" style="color:#2a5298;">Register</a></p>
+            </div>
+        </form>
+    </main>
+
+    <script src="login.js"></script>
+</body>
+</html>
