@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Add Product</title>
+    <link rel="stylesheet" href="order.css">
+    <style>
+        .admin-form {
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+        }
+        .admin-form input, .admin-form select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .preview-img {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            background: #eee;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <h1 class="head">FreshMart Admin</h1>
+        <nav><a href="order.html">View Store</a></nav>
+    </header>
+
+    <div class="admin-form">
+        <h2>Add New Product</h2>
+        <img id="imgPreview" class="preview-img" src="" alt="Image Preview">
+        <form id="productForm">
+            <input type="text" id="pName" placeholder="Product Name (e.g. Apple)" required>
+            <input type="text" id="pWeight" placeholder="Weight (e.g. 250g)" required>
+            <input type="number" id="pPrice" placeholder="Price (Rs.)" required>
+            
+            <label>Category:</label>
+            <select id="pCategory">
+                <option value="fruits">Fruits</option>
+                <option value="vegetables">Vegetables</option>
+                <option value="dairy">Dairy</option>
+                <option value="frozen_food">Frozen Food</option>
+                <option value="grocery">Grocery</option>
+            </select>
+
+            <label>Product Image:</label>
+            <input type="file" id="pImg" accept="image/*" required>
+            
+            <button type="submit" class="category-btn active" style="width:100%">Add to Inventory</button>
+        </form>
+    </div>
+
+    <script>
+        const pImg = document.getElementById('pImg');
+        const imgPreview = document.getElementById('imgPreview');
+
+        // Show preview when image is selected
+        pImg.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => imgPreview.src = e.target.result;
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Create product object
+            const newProduct = {
+                name: document.getElementById('pName').value,
+                weight: document.getElementById('pWeight').value,
+                price: document.getElementById('pPrice').value,
+                category: document.getElementById('pCategory').value,
+                // Using the DataURL for simulation (In a real app, you'd send the file to a server)
+                image: imgPreview.src 
+            };
+
+            // Save to LocalStorage
+            let products = JSON.parse(localStorage.getItem('customProducts')) || [];
+            products.push(newProduct);
+            localStorage.setItem('customProducts', JSON.stringify(products));
+
+            alert("Product added successfully!");
+            this.reset();
+            imgPreview.src = "";
+        });
+    </script>
+</body>
+</html>
