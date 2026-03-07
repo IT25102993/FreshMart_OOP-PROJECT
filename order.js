@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // --- 1. Authentication Logic ---
     const authLink = document.getElementById("auth-link");
     const adminContainer = document.getElementById("admin-link-container");
+    const admin = document.getElementById("admin-link");
     const currentUser = sessionStorage.getItem('loggedInUser');
 
     if (currentUser) {
@@ -10,7 +11,10 @@ document.addEventListener("DOMContentLoaded", function () {
         
         // Show Admin Panel / Add Products link if admin
         if (currentUser === "admin@gmail.com") {
-            adminContainer.innerHTML = `<a href="add_products.html" style="color: red; font-weight: bold; margin-right:15px;">Add Products</a>`;
+            adminContainer.innerHTML = `<a href="add_products.html" target="_blank" style="color: red; font-weight: bold; margin-right:15px;">Add Products</a>`;
+        }
+        if (currentUser === "admin@gmail.com") {
+            admin.innerHTML = `<h4 style="color: red;  ">Admin</h4>`;
         }
 
         document.getElementById("logout-btn").addEventListener("click", () => {
@@ -18,6 +22,12 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.reload();
         });
     }
+
+    //ADMIN next to FreshMart
+
+    
+
+
 
     // --- 2. Load Products from Inventory (Local Storage) ---
     const productGrid = document.getElementById("product-grid");
