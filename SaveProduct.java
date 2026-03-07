@@ -7,7 +7,7 @@ import javax.servlet.annotation.*;
 public class SaveProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        // Retrieve data from the add_products.html form
+        // Retrieve parameters from the form
         String pId = request.getParameter("pId");
         String pName = request.getParameter("pName");
         String pCat = request.getParameter("pCategory");
@@ -17,7 +17,7 @@ public class SaveProduct extends HttpServlet {
         // Format: ID,Name,Category,Price,Stock
         String dataLine = pId + "," + pName + "," + pCat + "," + pPrice + "," + pStock;
 
-        // Path where inventory.txt will be stored (root folder)
+        // Locates the root directory of your web application
         String path = getServletContext().getRealPath("/") + "inventory.txt";
         
         try (FileWriter fw = new FileWriter(path, true);
@@ -26,7 +26,7 @@ public class SaveProduct extends HttpServlet {
             
             out.println(dataLine);
             
-            // Redirect back to the store page after saving
+            // Redirect back to the store to see the new product
             response.sendRedirect("order.html");
         } catch (IOException e) {
             response.getWriter().println("Error saving to file: " + e.getMessage());
