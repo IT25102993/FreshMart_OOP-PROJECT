@@ -25,10 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //ADMIN next to FreshMart
 
-    
-
-
-
     // --- 2. Load Products from Inventory (Local Storage) ---
     const productGrid = document.getElementById("product-grid");
     const savedInventory = JSON.parse(localStorage.getItem('inventory')) || [];
