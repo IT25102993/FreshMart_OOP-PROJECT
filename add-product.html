@@ -44,7 +44,33 @@
         </div>
 
         <div class="home-content">
-            <div class="admin-form">
+            <div class="admin-form">/* Suggested additions to make the form look like your site */
+.admin-form {
+    max-width: 500px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.admin-form input, 
+.admin-form select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.preview-box img {
+    max-width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background: #f1f1f1;
+    display: block;
+    margin-bottom: 15px;
+}
                 <h2>Add New Product</h2>
                 <div class="preview-box">
                     <img id="imgPreview" src="" alt="Preview">
