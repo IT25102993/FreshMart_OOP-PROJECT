@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         // Show Admin Panel / Add Products link if admin
         if (currentUser === "admin@gmail.com") {
-            adminContainer.innerHTML = `<a href="admin.html" target="_blank" style="color: red; font-weight: bold; margin-right:15px;">Add Products</a>`;
+            adminContainer.innerHTML = `<a href="admin.html" target="_blank" style="color: red; font-weight: bold; margin-right:15px;">Admin Panal</a>`;
         }
         if (currentUser === "admin@gmail.com") {
             admin.innerHTML = `<h4 style="color: red;">Admin</h4>`;
