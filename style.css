@@ -1,0 +1,130 @@
+/* Google Font Link */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+:root {
+  --primary: #4f46e5;
+  --bg-color: #f8fafc;
+  --sidebar-color: #1e293b;
+  --text-white: #ffffff;
+  --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+body {
+  background: var(--bg-color);
+}
+
+.sidebar {
+  position: fixed;
+  height: 100%;
+  width: 240px;
+  background: var(--sidebar-color);
+  transition: all 0.5s ease;
+}
+
+.sidebar.active {
+  width: 60px;
+}
+
+.sidebar .logo-details {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  color: var(--text-white);
+}
+
+.sidebar .nav-links {
+  margin-top: 10px;
+}
+
+.sidebar .nav-links li {
+  position: relative;
+  list-style: none;
+  height: 50px;
+}
+
+.sidebar .nav-links li a {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #94a3b8;
+  transition: all 0.4s ease;
+}
+
+.sidebar .nav-links li a.active,
+.sidebar .nav-links li a:hover {
+  background: #334155;
+  color: var(--text-white);
+}
+
+.sidebar .nav-links li i {
+  min-width: 60px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.home-section {
+  position: relative;
+  background: var(--bg-color);
+  min-height: 100vh;
+  left: 240px;
+  width: calc(100% - 240px);
+  transition: all 0.5s ease;
+}
+
+.sidebar.active ~ .home-section {
+  width: calc(100% - 60px);
+  left: 60px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  background: #fff;
+  align-items: center;
+  padding: 0 30px;
+  box-shadow: var(--card-shadow);
+}
+
+.home-content {
+  padding: 30px;
+}
+
+.overview-boxes {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  width: calc(100% / 4 - 15px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.box .box-topic {
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.box .number {
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 5px;
+}
