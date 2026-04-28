@@ -3,160 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
-  <title>FreshMart | Checkout</title>
-  <link rel="stylesheet" href="css/order.css">
+  <title>Dynamic Payment Form</title>
   <style>
-    .checkout-container {
-        max-width: 900px;
-        margin: 40px auto;
-        padding: 30px;
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(15px);
-        border-radius: 20px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        display: grid;
-        grid-template-columns: 1.5fr 1fr;
-        gap: 30px;
-    }
+    body { font-family: sans-serif; margin: 40px; line-height: 1.6; }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; font-weight: bold; }
+    input, select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; }
 
-    .checkout-form h2, .order-summary h2 {
-        margin-bottom: 25px;
-        color: #14284a;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 500;
-        color: #555;
-    }
-
-    .form-group input, .form-group textarea, .form-group select {
-        width: 100%;
-        padding: 12px 15px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        font-size: 14px;
-        outline: none;
-        transition: 0.3s;
-    }
-
-    .form-group input:focus {
-        border-color: #23b236;
-    }
-
-    .order-summary {
-        background: #fcfcfc;
-        padding: 20px;
-        border-radius: 15px;
-        border: 1px solid #eee;
-    }
-
-    .summary-item {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-        font-size: 14px;
-    }
-
-    .summary-total {
-        border-top: 2px solid #eee;
-        margin-top: 15px;
-        padding-top: 15px;
-        display: flex;
-        justify-content: space-between;
-        font-weight: bold;
-        font-size: 18px;
-        color: #14284a;
-    }
-
-    .confirm-btn {
-        width: 100%;
-        background: #23b236;
-        color: white;
-        border: none;
-        padding: 15px;
-        border-radius: 12px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        margin-top: 20px;
-        transition: 0.3s;
-    }
-
-    .confirm-btn:hover {
-        background: #1fa831;
-        transform: scale(1.02);
-    }
-
-    @media (max-width: 768px) {
-        .checkout-container {
-            grid-template-columns: 1fr;
-        }
+    /* This hides the card section by default */
+    #card-details {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-left: 4px solid #007bff;
     }
   </style>
 </head>
 <body>
-<header class="navbar">
-  <h1 style="color:#14284a">FRESH<span style="color:#1fa831">MART</span></h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="order.html">Shop</a>
-  </nav>
-</header>
 
-<main>
-  <div class="checkout-container">
-    <div class="checkout-form">
-      <h2>Shipping & Payment</h2>
-      <form id="checkout-form">
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" id="full-name" required placeholder="Enter your full name">
-        </div>
-        <div class="form-group">
-          <label>Shipping Address</label>
-          <textarea id="address" rows="3" required placeholder="House No, Street, City"></textarea>
-        </div>
-        <div class="form-group">
-          <label>Phone Number</label>
-          <input type="tel" id="phone" required placeholder="07XXXXXXXX">
-        </div>
-        <div class="form-group">
-          <label>Payment Method</label>
-          <select id="payment-method">
-            <option value="cod">Cash on Delivery</option>
-            <option value="card">Credit/Debit Card (Demo)</option>
-          </select>
-        </div>
-      </form>
+<h2>Checkout</h2>
+
+<div class="form-group">
+  <label for="payment-method">Select Payment Method:</label>
+  <select id="payment-method" onchange="toggleCardDetails()">
+    <option value="cash">Cash on Delivery</option>
+    <option value="card">Credit / Debit Card</option>
+    <option value="paypal">PayPal</option>
+  </select>
+</div>
+
+<div id="card-details">
+  <h3>Card Information</h3>
+  <div class="form-group">
+    <label>Card Number</label>
+    <input type="text" placeholder="1234 5678 9101 1121">
+  </div>
+  <div style="display: flex; gap: 10px;">
+    <div class="form-group" style="flex: 1;">
+      <label>Expiry Date</label>
+      <input type="text" placeholder="MM/YY">
     </div>
-
-    <div class="order-summary" id="order-summary">
-      <h2>Order Summary</h2>
-      <div id="summary-items-list">
-        <!-- Items injected by JS -->
-      </div>
-      <div class="summary-total">
-        <span>Total</span>
-        <span>Rs. <span id="summary-total-amount">0</span></span>
-      </div>
-      <button type="submit" form="checkout-form" class="confirm-btn">Confirm Order</button>
+    <div class="form-group" style="flex: 1;">
+      <label>CVV</label>
+      <input type="text" placeholder="123">
     </div>
   </div>
-</main>
+</div>
 
-<footer class="footer">
-  <h2><b>FreshMart</b></h2>
-  <p>Healthy Living</p>
-  <p>&copy; 2026 All Rights Reserved By FreshMart</p>
-</footer>
+<script>
+  function toggleCardDetails() {
+    const selection = document.getElementById('payment-method').value;
+    const cardSection = document.getElementById('card-details');
 
-<script src="js/checkout.js"></script>
+    if (selection === 'card') {
+      cardSection.style.display = 'block';
+    } else {
+      cardSection.style.display = 'none';
+    }
+  }
+</script>
+
 </body>
 </html>
