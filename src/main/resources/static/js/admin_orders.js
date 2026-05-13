@@ -150,6 +150,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Completed'
                 ];
 
+                const deliveryStartedIndex = statusFlow.indexOf('DELIVERY_STARTED');
+                const isDeliveryPhase = currentStep >= deliveryStartedIndex;
+
+                const driverAssignHtml = isDeliveryPhase ? `
+                    <strong>Assign/Change Driver:</strong>
+                    <select class="driver-select" onchange="window.adminAssignDriver(${order.id}, this.value)">
+                        ${driverOptions}
+                    </select>
+                ` : `
+                    <span style="font-size:13px; color:#999; font-style:italic;">
+                        <i class='bx bx-info-circle'></i> Driver can be assigned once order reaches <strong>Delivery Started</strong>
+                    </span>
+                `;
+
                 card.innerHTML = `
                     <div class="order-header" style="${order.status === 'COMPLETED' ? 'justify-content: center; flex-direction: column; text-align: center;' : ''}">
                         <div style="${order.status === 'COMPLETED' ? 'margin-bottom: 15px;' : ''}">
@@ -176,14 +190,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     ${driverDetailsHtml}
                     <div class="order-actions" style="margin-top: 15px;">
-                        <strong>Assign/Change Driver:</strong>
-                        <select class="driver-select" onchange="window.adminAssignDriver(${order.id}, this.value)">
-                            ${driverOptions}
-                        </select>
+                        ${driverAssignHtml}
                         ${actionBtn}
                         <strong style="margin-left: auto; color: #23b236; font-size: 1.1em;">Total: Rs. ${order.totalAmount.toFixed(2)}</strong>
                     </div>
                 `;
+
                 ordersList.appendChild(card);
             });
         } catch (err) { ordersList.innerHTML = '<p>Error loading orders.</p>'; }

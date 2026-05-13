@@ -52,7 +52,7 @@ public class OrderController {
             }
             order.setItems(items);
 
-            Order savedOrder = orderService.placeOrder(order);
+            Order savedOrder = orderService.placeOrder(order, request.getPaymentMethod(), request.getCardBank());
             return ResponseEntity.ok(Map.of("success", true, "order", savedOrder));
         } catch (Exception e) {
             return ResponseEntity.ok(Map.of("success", false, "message", e.getMessage()));

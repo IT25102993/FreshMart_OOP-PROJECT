@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const isExpanded = expandedOrders.has(order.id.toString());
                 
                 let driverSection = '';
-                if (order.driver) {
+                if (order.driver && currentStep >= statusMap['DELIVERY_STARTED']) {
                     driverSection = `
                         <div class="driver-box">
                             <i class='bx bxs-truck'></i>

@@ -7,6 +7,16 @@ document.addEventListener('DOMContentLoaded', function() {
   const adminBadge = document.getElementById('admin-badge');
   const currentUser = sessionStorage.getItem('loggedInUser');
   const role = sessionStorage.getItem('userRole');
+  const cardDetails = document.getElementById('payment-method');
+
+  if (cardDetails ==="card") cardDetails.innerHTML = '<label>Card No</label>\n' +
+      '                    <input type="text" id="card-no" required placeholder="1234-5678-1234-5678">\n' +
+      '                    </select>\n' +
+      '                </div>\n' +
+      '                <div class="form-group">\n' +
+      '                    <label>Card Holder Name</label>\n' +
+      '                    <input type="text" id="card-name" required placeholder="Card Holder Name">\n' +
+      '                    </select>\n';
 
   if (currentUser) {
     let authHtml = `Logged in: <b>${currentUser}</b> | <a href="profile.html" style="color: #2a5298; text-decoration:none; margin-left:10px;">Profile</a> | <span id="logout-btn" style="cursor:pointer; color: #2a5298; margin-left: 10px;">Logout</span>`;
@@ -243,7 +253,7 @@ async function loadProducts() {
         <img src="${imgSrc || placeholder}" alt="${p.name}" onerror="this.src='${placeholder}'">
         <small style="color:gray;">ID: ${p.productId}</small>
         <h3>${p.name}</h3>
-        <p>Rs. ${p.price != null ? p.price : 0}</p>
+        <p>Rs. ${(p.price != null ? p.price : 0).toFixed(2)}</p>
         <button onclick="addToCart(this, '${p.name.replace(/'/g, "\\'")}', ${p.price != null ? p.price : 0}, '${p.productId}')">Add to Cart</button>
       `;
       productGrid.appendChild(card);
@@ -266,4 +276,7 @@ function categoryFilters() {
       });
     });
   });
+
+
+
 }

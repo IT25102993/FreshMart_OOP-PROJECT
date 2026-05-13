@@ -16,22 +16,35 @@ public class OrderService {
     private final OrderItemRepository orderItemRepository;
     private final DriverRepository driverRepository;
     private final CustomerRepository customerRepository;
+    private final PaymentRepository paymentRepository;
 
-    public OrderService(OrderRepository orderRepository, OrderItemRepository orderItemRepository, 
-                        DriverRepository driverRepository, CustomerRepository customerRepository) {
+    public OrderService(OrderRepository orderRepository, OrderItemRepository orderItemRepository,
+                        DriverRepository driverRepository, CustomerRepository customerRepository,
+                        PaymentRepository paymentRepository) {
         this.orderRepository = orderRepository;
         this.orderItemRepository = orderItemRepository;
         this.driverRepository = driverRepository;
         this.customerRepository = customerRepository;
+        this.paymentRepository = paymentRepository;
     }
 
     @Transactional
-    public Order placeOrder(Order order) {
+    public Order placeOrder(Order order, String paymentMethod, String cardBank) {
         order.setStatus("REQUESTED");
         order.setOrderDate(LocalDateTime.now());
-        // Items are saved automatically due to cascade = CascadeType.ALL in Order entity
-        // as long as item.setOrder(order) was called.
-        return orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
+
+        // Create payment record
+        Payment payment = new Payment();
+        payment.setOrder(savedOrder);
+        payment.setPaymentMethod(paymentMethod != null ? paymentMethod : "COD");
+        payment.setCardBank(cardBank);
+        payment.setAmount(savedOrder.getTotalAmount());
+        payment.setStatus("PENDING");
+        payment.setPaymentDate(LocalDateTime.now());
+        paymentRepository.save(payment);
+
+        return savedOrder;
     }
 
     public List<Order> getCustomerOrders(Customer customer) {
@@ -55,8 +68,16 @@ public class OrderService {
     }
 
     @Transactional
+    public Payment updatePaymentStatus(Long paymentId, String status) {
+        return paymentRepository.findById(paymentId).map(payment -> {
+            payment.setStatus(status);
+            return paymentRepository.save(payment);
+        }).orElseThrow(() -> new RuntimeException("Payment not found"));
+    }
+
+    @Transactional
     public Order assignDriver(Long orderId, Long driverId) {
-        return orderRepository.findById(orderId).flatMap(order -> 
+        return orderRepository.findById(orderId).flatMap(order ->
             driverRepository.findById(driverId).map(driver -> {
                 order.setDriver(driver);
                 return orderRepository.save(order);
@@ -71,4 +92,13 @@ public class OrderService {
     public Driver saveDriver(Driver driver) {
         return driverRepository.save(driver);
     }
+
+    public List<Payment> getAllPayments() {
+        return paymentRepository.findAll();
+    }
+
+    public Optional<Payment> getPaymentByOrderId(Long orderId) {
+        return paymentRepository.findByOrderId(orderId);
+    }
 }
+

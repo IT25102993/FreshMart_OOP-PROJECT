@@ -41,9 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
         const total = totalAmountSpan.innerText;
 
+        const paymentMethodEl = document.getElementById('payment-method');
+        const cardBankEl = document.getElementById('card-bank');
+        const paymentMethod = paymentMethodEl ? paymentMethodEl.value.toUpperCase() : 'COD';
+        const cardBank = (paymentMethod === 'CARD' && cardBankEl) ? cardBankEl.value : null;
+
         const orderRequest = {
             customerEmail: currentUser,
             totalAmount: parseFloat(total),
+            paymentMethod: paymentMethod,
+            cardBank: cardBank,
             items: cart.map(item => ({
                 productId: item.id,
                 quantity: item.quantity,
